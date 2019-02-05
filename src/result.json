@@ -1,0 +1,20 @@
+{
+  "result": [
+    { "question":"We went to this type of place 2 times on the same day. What is the name of the place the 2nd time.",
+      "answer":"Kung Fu Tea",
+      "mapURL": "https://www.google.com/maps/search/?api=1&query=Symphony%20Station"
+    },
+    { "question":"The cosmetic shop I told you my mom went to when she came to Boston. (You might actually have to walk and explore around this area if you cant find on google)",
+      "answer":"Lush",
+      "mapURL": "https://www.google.com/maps/search/?api=1&query=Copley%20Station"
+    },
+    { "question":"You have never asked my single best celebrity crush. So guess this one and you get a gift. (Married to one of the sharks in SharkTank)",
+      "answer":"jennifer lopez",
+      "mapURL": ""
+    },
+    { "question":"Final Question for the big prize. Enter one phone number. If correct screen will disappear. Call that number to know where your gift is",
+      "answer":"8572648772",
+      "mapURL": "https://www.google.com/maps/search/?api=1&query=72%20Westland%20Avenue"
+    }
+  ]
+}
