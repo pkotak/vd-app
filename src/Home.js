@@ -6,18 +6,27 @@ export default class Home extends React.Component{
     constructor(){
         super();
         this.updateInputValue = this.updateInputValue.bind(this);
-        this.state = {goNext: false, currentIndex : 0, userAnswer: '', percentComplete: 0}
+        this.state = {goNext: false, currentIndex : 0, userAnswer: '', percentComplete: 0, strokeColor: '#FF0000'}
     }
 
     openUrl(mapUrl){
         window.open(mapUrl);
     }
 
-    validateAnswer(userAnswer, actualAnswer) {
+    validateAnswer = (userAnswer, actualAnswer) => {
         if(userAnswer.toLowerCase() === actualAnswer.toLowerCase()) {
-            this.setState({currentIndex : this.state.currentIndex + 1,
-                percentComplete: this.state.percentComplete + 25})
+            this.setState((prevState, props) => ({currentIndex : prevState.currentIndex + 1,
+                percentComplete: prevState.percentComplete + 25}),
+                () => {
+                    if(this.state.percentComplete >= 50) {
+                        this.setState({strokeColor: '#228B22'});
+                    }
+
+                    if(this.state.percentComplete === 100)
+                        alert('congrats babe')
+                });
         }
+        document.getElementById("answer").value = '';
     }
 
     updateInputValue(event) {
@@ -26,43 +35,31 @@ export default class Home extends React.Component{
 
     render() {
         let currentData = customData.result[this.state.currentIndex];
-        if(this.state.percentComplete !== 100)
             return (
-                <div className="container-fluid">
-                    <div className="row">
-                        <h2>{currentData.question}</h2>
+                <div className="card">
+                    <div className="card-header">
+                        <h2 className='card-title'>{currentData.question}</h2>
                     </div>
-                    <div className="row">
-                        <div className="col-xs-6">
-                            <div className="input-group mb-3">
-                                <div className="input-group-prepend">
-                                    <span className="input-group-text" id="inputGroup-sizing-default">Answer</span>
-                                </div>
-                                <input type="text"
-                                       className="form-control"
-                                       aria-label="Default"
-                                       aria-describedby="inputGroup-sizing-default"
-                                       id="answer"
-                                       onChange={this.updateInputValue}/>
+                    <div className="card-body">
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Answer</span>
                             </div>
-                        </div>
-                        <div className="col-xs-6">
-                            <button className="btn btn-danger" onClick={() => this.openUrl(currentData.mapURL)}>Clue</button>
+                            <input type="text"
+                                   className="form-control"
+                                   aria-label="Default"
+                                   aria-describedby="inputGroup-sizing-default"
+                                   id="answer"
+                                   onChange={this.updateInputValue}/>
                         </div>
                     </div>
-                    <div className="row mb-4">
+                    <div className="card-body">
+                        <button className="btn btn-danger btn-block" onClick={() => this.openUrl(currentData.mapURL)}>Clue</button>
                         <button className="btn btn-primary btn-block" onClick={() => this.validateAnswer(this.state.userAnswer,currentData.answer)}>Next</button>
                     </div>
-                    <div className="row">
-                        <Line percent={this.state.percentComplete} strokeWidth="2" strokeColor="#228B22" />
+                    <div className="card-body">
+                        <Line percent={this.state.percentComplete} strokeWidth="1" strokeColor={this.state.strokeColor} />
                     </div>
                 </div>)
-        else {
-            return (
-                <div>
-                    Complete
-                </div>
-            )
-        }
     }
 }
