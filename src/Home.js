@@ -35,6 +35,9 @@ export default class Home extends React.Component{
 
     render() {
         let currentData = customData.result[this.state.currentIndex];
+        if(this.state.percentComplete === 100)
+            return(<div></div>);
+        else
             return (
                 <div className="card">
                     <div className="card-header">
