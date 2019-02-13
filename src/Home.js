@@ -23,7 +23,7 @@ export default class Home extends React.Component{
                     }
 
                     if(this.state.percentComplete === 100)
-                        alert('congrats babe')
+                        alert('congrats babe. Now call that number to find out where your gift is.')
                 });
         }
         document.getElementById("answer").value = '';
@@ -36,33 +36,41 @@ export default class Home extends React.Component{
     render() {
         let currentData = customData.result[this.state.currentIndex];
         if(this.state.percentComplete === 100)
-            return(<div></div>);
+            return(<div> THE END</div>);
         else
             return (
-                <div className="card">
-                    <div className="card-header">
-                        <h2 className='card-title'>{currentData.question}</h2>
+                <div>
+                    <div style={{backgroundColor: '#000000', textAlign: 'center'}}>
+                        <h1 style={{color: '#ffffff'}}>Gift Hunt</h1>
                     </div>
-                    <div className="card-body">
-                        <div className="input-group mb-3">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Answer</span>
+                    <div className='container-fluid'>
+                        <div className="card ml-2 mr-2">
+                            <div className="card-header">
+                                <h2 className='card-title'>{currentData.question}</h2>
                             </div>
-                            <input type="text"
-                                   className="form-control"
-                                   aria-label="Default"
-                                   aria-describedby="inputGroup-sizing-default"
-                                   id="answer"
-                                   onChange={this.updateInputValue}/>
+                            <div className="card-body">
+                                <div className="input-group mb-3">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text" id="inputGroup-sizing-default">Answer</span>
+                                    </div>
+                                    <input type="text"
+                                           className="form-control"
+                                           aria-label="Default"
+                                           aria-describedby="inputGroup-sizing-default"
+                                           id="answer"
+                                           onChange={this.updateInputValue}/>
+                                </div>
+                            </div>
+                            <div className="card-body">
+                                <button className="btn btn-danger btn-block" onClick={() => this.openUrl(currentData.mapURL)}>Clue</button>
+                                <button className="btn btn-primary btn-block" onClick={() => this.validateAnswer(this.state.userAnswer,currentData.answer)}>Next</button>
+                            </div>
+                            <div className="card-body">
+                                <Line percent={this.state.percentComplete} strokeWidth="1" strokeColor={this.state.strokeColor} />
+                            </div>
                         </div>
                     </div>
-                    <div className="card-body">
-                        <button className="btn btn-danger btn-block" onClick={() => this.openUrl(currentData.mapURL)}>Clue</button>
-                        <button className="btn btn-primary btn-block" onClick={() => this.validateAnswer(this.state.userAnswer,currentData.answer)}>Next</button>
-                    </div>
-                    <div className="card-body">
-                        <Line percent={this.state.percentComplete} strokeWidth="1" strokeColor={this.state.strokeColor} />
-                    </div>
-                </div>)
+                </div>
+                )
     }
 }
